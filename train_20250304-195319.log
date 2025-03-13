@@ -1,0 +1,454 @@
+2025-03-04 19:53:19,520   INFO  **********************Start logging**********************
+2025-03-04 19:53:19,520   INFO  CUDA_VISIBLE_DEVICES=ALL
+2025-03-04 19:53:19,520   INFO  Training with a single process
+2025-03-04 19:53:19,520   INFO  cfg_file         cfgs/waymo_models/faster_16frames.yaml
+2025-03-04 19:53:19,520   INFO  batch_size       5
+2025-03-04 19:53:19,520   INFO  epochs           6
+2025-03-04 19:53:19,520   INFO  workers          4
+2025-03-04 19:53:19,520   INFO  extra_tag        default
+2025-03-04 19:53:19,520   INFO  ckpt             None
+2025-03-04 19:53:19,520   INFO  pretrained_model None
+2025-03-04 19:53:19,520   INFO  launcher         none
+2025-03-04 19:53:19,520   INFO  tcp_port         18888
+2025-03-04 19:53:19,520   INFO  sync_bn          False
+2025-03-04 19:53:19,520   INFO  fix_random_seed  False
+2025-03-04 19:53:19,520   INFO  ckpt_save_interval 1
+2025-03-04 19:53:19,520   INFO  local_rank       None
+2025-03-04 19:53:19,520   INFO  max_ckpt_save_num 30
+2025-03-04 19:53:19,520   INFO  merge_all_iters_to_one_epoch False
+2025-03-04 19:53:19,520   INFO  set_cfgs         None
+2025-03-04 19:53:19,520   INFO  max_waiting_mins 0
+2025-03-04 19:53:19,520   INFO  start_epoch      0
+2025-03-04 19:53:19,520   INFO  num_epochs_to_eval 0
+2025-03-04 19:53:19,520   INFO  save_to_file     False
+2025-03-04 19:53:19,520   INFO  use_tqdm_to_record False
+2025-03-04 19:53:19,520   INFO  logger_iter_interval 50
+2025-03-04 19:53:19,520   INFO  ckpt_save_time_interval 300
+2025-03-04 19:53:19,520   INFO  wo_gpu_stat      False
+2025-03-04 19:53:19,520   INFO  use_amp          False
+2025-03-04 19:53:19,520   INFO  cfg.ROOT_DIR: /home/yons/pointcloud/openpcdet/OpenPCDet_official
+2025-03-04 19:53:19,520   INFO  cfg.LOCAL_RANK: 0
+2025-03-04 19:53:19,520   INFO  cfg.CLASS_NAMES: ['Vehicle', 'Pedestrian', 'Cyclist']
+2025-03-04 19:53:19,520   INFO  ----------- DATA_CONFIG -----------
+2025-03-04 19:53:19,520   INFO  cfg.DATA_CONFIG.DATASET: WaymoDataset
+2025-03-04 19:53:19,520   INFO  cfg.DATA_CONFIG.DATA_PATH: ../../data/waymo
+2025-03-04 19:53:19,520   INFO  cfg.DATA_CONFIG.PROCESSED_DATA_TAG: waymo_processed_data_v0_5_0
+2025-03-04 19:53:19,520   INFO  cfg.DATA_CONFIG.POINT_CLOUD_RANGE: [-75.2, -75.2, -2, 75.2, 75.2, 4]
+2025-03-04 19:53:19,520   INFO  ----------- DATA_SPLIT -----------
+2025-03-04 19:53:19,520   INFO  cfg.DATA_CONFIG.DATA_SPLIT.train: train
+2025-03-04 19:53:19,520   INFO  cfg.DATA_CONFIG.DATA_SPLIT.test: val
+2025-03-04 19:53:19,520   INFO  ----------- SAMPLED_INTERVAL -----------
+2025-03-04 19:53:19,520   INFO  cfg.DATA_CONFIG.SAMPLED_INTERVAL.train: 1
+2025-03-04 19:53:19,520   INFO  cfg.DATA_CONFIG.SAMPLED_INTERVAL.test: 1
+2025-03-04 19:53:19,520   INFO  cfg.DATA_CONFIG.FILTER_EMPTY_BOXES_FOR_TRAIN: True
+2025-03-04 19:53:19,520   INFO  cfg.DATA_CONFIG.DISABLE_NLZ_FLAG_ON_POINTS: True
+2025-03-04 19:53:19,520   INFO  cfg.DATA_CONFIG.USE_SHARED_MEMORY: False
+2025-03-04 19:53:19,520   INFO  cfg.DATA_CONFIG.SHARED_MEMORY_FILE_LIMIT: 35000
+2025-03-04 19:53:19,521   INFO  ----------- DATA_AUGMENTOR -----------
+2025-03-04 19:53:19,521   INFO  cfg.DATA_CONFIG.DATA_AUGMENTOR.DISABLE_AUG_LIST: ['placeholder']
+2025-03-04 19:53:19,521   INFO  cfg.DATA_CONFIG.DATA_AUGMENTOR.AUG_CONFIG_LIST: [{'NAME': 'random_world_flip', 'ALONG_AXIS_LIST': ['x', 'y']}, {'NAME': 'random_world_rotation', 'WORLD_ROT_ANGLE': [-0.78539816, 0.78539816]}, {'NAME': 'random_world_scaling', 'WORLD_SCALE_RANGE': [0.95, 1.05]}]
+2025-03-04 19:53:19,521   INFO  ----------- POINT_FEATURE_ENCODING -----------
+2025-03-04 19:53:19,521   INFO  cfg.DATA_CONFIG.POINT_FEATURE_ENCODING.encoding_type: absolute_coordinates_encoding
+2025-03-04 19:53:19,521   INFO  cfg.DATA_CONFIG.POINT_FEATURE_ENCODING.used_feature_list: ['x', 'y', 'z', 'intensity', 'elongation', 'time']
+2025-03-04 19:53:19,521   INFO  cfg.DATA_CONFIG.POINT_FEATURE_ENCODING.src_feature_list: ['x', 'y', 'z', 'intensity', 'elongation', 'time']
+2025-03-04 19:53:19,521   INFO  cfg.DATA_CONFIG.DATA_PROCESSOR: [{'NAME': 'mask_points_and_boxes_outside_range', 'REMOVE_OUTSIDE_BOXES': True}, {'NAME': 'shuffle_points', 'SHUFFLE_ENABLED': {'train': True, 'test': True}}, {'NAME': 'anchor_aug', 'NUM_FRAMES': 16, 'ROI_PER_IMAGE': 96, 'FG_RATIO': 0.5, 'REG_AUG_METHOD': 'single', 'ROI_FG_AUG_TIMES': 10, 'RATIO': 0.2, 'USE_ROI_AUG': True, 'USE_BG_ROI_AUG': False, 'USE_TRAJ_AUG': {'ENABLED': True, 'THRESHOD': 0.8}, 'USE_ROI_LIST': {'ENABLED': False, 'MAX_ROI': 200, 'MIN_ROI': 30}, 'SAMPLE_ROI_BY_EACH_CLASS': True, 'CLS_SCORE_TYPE': 'roi_iou', 'STACK_CONCAT': True, 'CLS_FG_THRESH': 0.75, 'CLS_BG_THRESH': 0.25, 'CLS_BG_THRESH_LO': 0.1, 'HARD_BG_RATIO': 0.8, 'REG_FG_THRESH': 0.55, 'REG_BG_THRESH': 0.7}]
+2025-03-04 19:53:19,521   INFO  cfg.DATA_CONFIG._BASE_CONFIG_: cfgs/dataset_configs/waymo_dataset.yaml
+2025-03-04 19:53:19,521   INFO  cfg.DATA_CONFIG.TRANSFORMED_POINTS: False
+2025-03-04 19:53:19,521   INFO  cfg.DATA_CONFIG.TRAIN_WITH_SPEED: True
+2025-03-04 19:53:19,521   INFO  cfg.DATA_CONFIG.USE_KEY_POINTS: True
+2025-03-04 19:53:19,521   INFO  ----------- SEQUENCE_CONFIG -----------
+2025-03-04 19:53:19,521   INFO  cfg.DATA_CONFIG.SEQUENCE_CONFIG.ENABLED: True
+2025-03-04 19:53:19,521   INFO  cfg.DATA_CONFIG.SEQUENCE_CONFIG.SAMPLE_OFFSET: [-15, 0]
+2025-03-04 19:53:19,521   INFO  cfg.DATA_CONFIG.SEQUENCE_CONFIG.USE_PRE_PREDBOX: True
+2025-03-04 19:53:19,521   INFO  cfg.DATA_CONFIG.SEQUENCE_CONFIG.USE_EPA: True
+2025-03-04 19:53:19,521   INFO  ----------- ONLINE_DETECT -----------
+2025-03-04 19:53:19,521   INFO  cfg.DATA_CONFIG.SEQUENCE_CONFIG.ONLINE_DETECT.POINTS_PRE_PATH: ../../data/waymo/focal_tokens
+2025-03-04 19:53:19,521   INFO  cfg.DATA_CONFIG.USE_PREDBOX: True
+2025-03-04 19:53:19,521   INFO  ----------- ROI_BOXES_PATH -----------
+2025-03-04 19:53:19,521   INFO  cfg.DATA_CONFIG.ROI_BOXES_PATH.train: ../output/waymo_models/centerpoint_4frames/Interval5/eval/epoch_36/train/Interval1/result.pkl
+2025-03-04 19:53:19,521   INFO  cfg.DATA_CONFIG.ROI_BOXES_PATH.test: ../output/waymo_models/centerpoint_4frames/Interval5/eval/epoch_36/val/Interval1/result.pkl
+2025-03-04 19:53:19,521   INFO  ----------- MODEL -----------
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.NAME: FASTer
+2025-03-04 19:53:19,521   INFO  ----------- ROI_HEAD -----------
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.NAME: FASTerHead
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TRANS_INPUT: 256
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.CLASS_AGNOSTIC: True
+2025-03-04 19:53:19,521   INFO  ----------- USE_BOX_ENCODING -----------
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.USE_BOX_ENCODING.ENABLED: True
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.AVG_STAGE1_SCORE: True
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.USE_TRAJ_EMPTY_MASK: True
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.USE_AUX_LOSS: True
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.IOU_WEIGHT: [0.45, 0.4]
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.PRE_AUG: True
+2025-03-04 19:53:19,521   INFO  ----------- VoxelSampler -----------
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.VoxelSampler.voxel_size: 0.4
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.VoxelSampler.pc_range: [-75.2, -75.2, -10, 75.2, 75.2, 10]
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.VoxelSampler.max_points_per_voxel: 32
+2025-03-04 19:53:19,521   INFO  ----------- ROI_GRID_POOL -----------
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.ROI_GRID_POOL.GRID_SIZE: 4
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.ROI_GRID_POOL.MLPS: [[128, 128], [128, 128]]
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.ROI_GRID_POOL.POOL_RADIUS: [0.8, 1.6]
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.ROI_GRID_POOL.NSAMPLE: [16, 16]
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.ROI_GRID_POOL.POOL_METHOD: max_pool
+2025-03-04 19:53:19,521   INFO  ----------- TransformerSSP -----------
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerSSP.num_lidar_points: 192
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerSSP.pos_hidden_dim: 64
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerSSP.enc_layers: 3
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerSSP.dim_feedforward: 512
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerSSP.hidden_dim: 256
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerSSP.dropout: 0.1
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerSSP.nheads: 4
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerSSP.pre_norm: False
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerSSP.num_frames: 1
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerSSP.num_groups: 1
+2025-03-04 19:53:19,521   INFO  ----------- use_grid_pos -----------
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerSSP.use_grid_pos.enabled: True
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerSSP.use_grid_pos.init_type: index
+2025-03-04 19:53:19,521   INFO  ----------- use_mlp_mixer -----------
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerSSP.use_mlp_mixer.enabled: True
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerSSP.use_mlp_mixer.hidden_dim: 16
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerSSP.drop_rate: [1, 0.5, 0.5]
+2025-03-04 19:53:19,521   INFO  ----------- TransformerMSP -----------
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerMSP.num_lidar_points: 48
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerMSP.pos_hidden_dim: 64
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerMSP.enc_layers: 3
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerMSP.dim_feedforward: 512
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerMSP.hidden_dim: 256
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerMSP.dropout: 0.1
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerMSP.nheads: 4
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerMSP.pre_norm: False
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerMSP.num_frames: 16
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerMSP.num_groups: [16, 4, 1]
+2025-03-04 19:53:19,521   INFO  ----------- use_grid_pos -----------
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerMSP.use_grid_pos.enabled: True
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerMSP.use_grid_pos.init_type: index
+2025-03-04 19:53:19,521   INFO  ----------- use_mlp_mixer -----------
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerMSP.use_mlp_mixer.enabled: True
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerMSP.use_mlp_mixer.hidden_dim: 16
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TransformerMSP.drop_rate: [0.5, 0.5]
+2025-03-04 19:53:19,521   INFO  ----------- TARGET_CONFIG -----------
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.BOX_CODER: ResidualCoder
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.ROI_PER_IMAGE: 96
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.FG_RATIO: 0.5
+2025-03-04 19:53:19,521   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.REG_AUG_METHOD: single
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.ROI_FG_AUG_TIMES: 10
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.RATIO: 0.2
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.USE_ROI_AUG: True
+2025-03-04 19:53:19,522   INFO  ----------- USE_TRAJ_AUG -----------
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.USE_TRAJ_AUG.ENABLED: True
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.USE_TRAJ_AUG.THRESHOD: 0.8
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.SAMPLE_ROI_BY_EACH_CLASS: True
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.CLS_SCORE_TYPE: roi_iou
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.CLS_FG_THRESH: 0.75
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.CLS_BG_THRESH: 0.25
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.CLS_BG_THRESH_LO: 0.1
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.HARD_BG_RATIO: 0.8
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.REG_FG_THRESH: 0.55
+2025-03-04 19:53:19,522   INFO  ----------- LOSS_CONFIG -----------
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.ROI_HEAD.LOSS_CONFIG.CLS_LOSS: BinaryCrossEntropy
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.ROI_HEAD.LOSS_CONFIG.REG_LOSS: smooth-l1
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.ROI_HEAD.LOSS_CONFIG.CORNER_LOSS_REGULARIZATION: True
+2025-03-04 19:53:19,522   INFO  ----------- LOSS_WEIGHTS -----------
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.ROI_HEAD.LOSS_CONFIG.LOSS_WEIGHTS.rcnn_cls_weight: 1.0
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.ROI_HEAD.LOSS_CONFIG.LOSS_WEIGHTS.rcnn_reg_weight: 1.0
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.ROI_HEAD.LOSS_CONFIG.LOSS_WEIGHTS.rcnn_corner_weight: 2.0
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.ROI_HEAD.LOSS_CONFIG.LOSS_WEIGHTS.joint_cls_weight: 1.0
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.ROI_HEAD.LOSS_CONFIG.LOSS_WEIGHTS.traj_reg_weight: [2.0, 0.0, 2.0]
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.ROI_HEAD.LOSS_CONFIG.LOSS_WEIGHTS.code_weights: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.ROI_HEAD.LOSS_CONFIG.LOSS_WEIGHTS.point_cls_weight: 1.0
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.ROI_HEAD.LOSS_CONFIG.LOSS_WEIGHTS.point_reg_weight: 1.0
+2025-03-04 19:53:19,522   INFO  ----------- POST_PROCESSING -----------
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.POST_PROCESSING.RECALL_THRESH_LIST: [0.3, 0.5, 0.7]
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.POST_PROCESSING.SCORE_THRESH: 0.1
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.POST_PROCESSING.OUTPUT_RAW_SCORE: False
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.POST_PROCESSING.SAVE_BBOX: False
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.POST_PROCESSING.EVAL_METRIC: waymo
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.POST_PROCESSING.NOT_APPLY_NMS_FOR_VEL: True
+2025-03-04 19:53:19,522   INFO  ----------- NMS_CONFIG -----------
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.POST_PROCESSING.NMS_CONFIG.MULTI_CLASSES_NMS: False
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.POST_PROCESSING.NMS_CONFIG.NMS_TYPE: nms_gpu
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.POST_PROCESSING.NMS_CONFIG.NMS_THRESH: [0.9, 0.7, 0.7]
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.POST_PROCESSING.NMS_CONFIG.NMS_PRE_MAXSIZE: [4096, 4096, 4096]
+2025-03-04 19:53:19,522   INFO  cfg.MODEL.POST_PROCESSING.NMS_CONFIG.NMS_POST_MAXSIZE: [500, 500, 500]
+2025-03-04 19:53:19,522   INFO  ----------- OPTIMIZATION -----------
+2025-03-04 19:53:19,522   INFO  cfg.OPTIMIZATION.BATCH_SIZE_PER_GPU: 2
+2025-03-04 19:53:19,522   INFO  cfg.OPTIMIZATION.NUM_EPOCHS: 6
+2025-03-04 19:53:19,522   INFO  cfg.OPTIMIZATION.OPTIMIZER: adam_onecycle
+2025-03-04 19:53:19,522   INFO  cfg.OPTIMIZATION.LR: 0.003
+2025-03-04 19:53:19,522   INFO  cfg.OPTIMIZATION.WEIGHT_DECAY: 0.01
+2025-03-04 19:53:19,522   INFO  cfg.OPTIMIZATION.MOMENTUM: 0.9
+2025-03-04 19:53:19,522   INFO  cfg.OPTIMIZATION.MOMS: [0.95, 0.85]
+2025-03-04 19:53:19,522   INFO  cfg.OPTIMIZATION.PCT_START: 0.4
+2025-03-04 19:53:19,522   INFO  cfg.OPTIMIZATION.DIV_FACTOR: 10
+2025-03-04 19:53:19,522   INFO  cfg.OPTIMIZATION.DECAY_STEP_LIST: [35, 45]
+2025-03-04 19:53:19,522   INFO  cfg.OPTIMIZATION.LR_DECAY: 0.1
+2025-03-04 19:53:19,522   INFO  cfg.OPTIMIZATION.LR_CLIP: 1e-07
+2025-03-04 19:53:19,522   INFO  cfg.OPTIMIZATION.LR_WARMUP: False
+2025-03-04 19:53:19,522   INFO  cfg.OPTIMIZATION.WARMUP_EPOCH: 1
+2025-03-04 19:53:19,522   INFO  cfg.OPTIMIZATION.GRAD_NORM_CLIP: 10
+2025-03-04 19:53:19,522   INFO  cfg.TAG: faster_16frames
+2025-03-04 19:53:19,522   INFO  cfg.EXP_GROUP_PATH: waymo_models
+2025-03-04 19:53:19,524   INFO  ----------- Create dataloader & network & optimizer -----------
+2025-03-04 19:53:19,524   INFO  Loading Waymo dataset
+2025-03-04 19:53:22,752   INFO  Total skipped info 0
+2025-03-04 19:53:22,752   INFO  Total samples for Waymo dataset: 158081
+2025-03-04 19:53:22,753   INFO  Loading and reorganizing pred_boxes to dict from path: ../output/waymo_models/centerpoint_4frames/Interval5/eval/epoch_36/train/Interval1/result.pkl
+2025-03-04 19:53:31,603   INFO  Predicted boxes has been loaded, total sequences: 798
+2025-03-04 19:53:32,552   INFO  ----------- Model FASTer created, param count: 7293136 -----------
+2025-03-04 19:53:32,552   INFO  FASTer(
+  (vfe): None
+  (backbone_3d): None
+  (map_to_bev_module): None
+  (pfe): None
+  (backbone_2d): None
+  (dense_head): None
+  (point_head): None
+  (roi_head): FASTerHead(
+    (proposal_target_layer): ProposalTargetLayer()
+    (reg_loss_func): WeightedSmoothL1Loss()
+    (voxel_sampler_cur): VoxelPointsSampler()
+    (voxel_sampler): VoxelSampler()
+    (jointembed): MLP(
+      (layers): ModuleList(
+        (0): Linear(in_features=256, out_features=256, bias=True)
+        (1): Linear(in_features=256, out_features=256, bias=True)
+        (2): Linear(in_features=256, out_features=256, bias=True)
+        (3): Linear(in_features=256, out_features=7, bias=True)
+      )
+    )
+    (up_dimension_geometry): MLP(
+      (layers): ModuleList(
+        (0): Linear(in_features=29, out_features=64, bias=True)
+        (1): Linear(in_features=64, out_features=64, bias=True)
+        (2): Linear(in_features=64, out_features=256, bias=True)
+      )
+    )
+    (up_dimension_motion): MLP(
+      (layers): ModuleList(
+        (0): Linear(in_features=30, out_features=64, bias=True)
+        (1): Linear(in_features=64, out_features=64, bias=True)
+        (2): Linear(in_features=64, out_features=256, bias=True)
+      )
+    )
+    (transformerSSP): Transformer(
+      (encoder): TransformerEncoder(
+        (layers): ModuleList(
+          (0): TransformerEncoderLayer(
+            (self_attn): MultiheadAttention(
+              (out_proj): NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True)
+            )
+            (linear1): Linear(in_features=256, out_features=512, bias=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+            (linear2): Linear(in_features=512, out_features=256, bias=True)
+            (norm1): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+            (norm2): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+            (dropout1): Dropout(p=0.1, inplace=False)
+            (dropout2): Dropout(p=0.1, inplace=False)
+            (mlp_mixer_3d): SpatialDropBlock(
+              (mixer): Adaptive_MHSA(
+                (dropout): Dropout(p=0.1, inplace=False)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True)
+              )
+              (dropout): Dropout(p=0.1, inplace=False)
+              (norm): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+              (norm_channel): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+              (ffn): Sequential(
+                (0): Linear(in_features=256, out_features=512, bias=True)
+                (1): ReLU()
+                (2): Dropout(p=0.1, inplace=False)
+                (3): Linear(in_features=512, out_features=256, bias=True)
+              )
+            )
+          )
+          (1): TransformerEncoderLayer(
+            (self_attn): MultiheadAttention(
+              (out_proj): NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True)
+            )
+            (linear1): Linear(in_features=256, out_features=512, bias=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+            (linear2): Linear(in_features=512, out_features=256, bias=True)
+            (norm1): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+            (norm2): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+            (dropout1): Dropout(p=0.1, inplace=False)
+            (dropout2): Dropout(p=0.1, inplace=False)
+            (mlp_mixer_3d): SpatialDropBlock(
+              (mixer): Adaptive_MHSA(
+                (dropout): Dropout(p=0.1, inplace=False)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True)
+              )
+              (dropout): Dropout(p=0.1, inplace=False)
+              (norm): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+              (norm_channel): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+              (ffn): Sequential(
+                (0): Linear(in_features=256, out_features=512, bias=True)
+                (1): ReLU()
+                (2): Dropout(p=0.1, inplace=False)
+                (3): Linear(in_features=512, out_features=256, bias=True)
+              )
+            )
+          )
+          (2): TransformerEncoderLayer(
+            (self_attn): MultiheadAttention(
+              (out_proj): NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True)
+            )
+            (linear1): Linear(in_features=256, out_features=512, bias=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+            (linear2): Linear(in_features=512, out_features=256, bias=True)
+            (norm1): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+            (norm2): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+            (dropout1): Dropout(p=0.1, inplace=False)
+            (dropout2): Dropout(p=0.1, inplace=False)
+            (mlp_mixer_3d): SpatialDropBlock(
+              (mixer): Adaptive_MHSA(
+                (dropout): Dropout(p=0.1, inplace=False)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True)
+              )
+              (dropout): Dropout(p=0.1, inplace=False)
+              (norm): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+              (norm_channel): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+              (ffn): Sequential(
+                (0): Linear(in_features=256, out_features=512, bias=True)
+                (1): ReLU()
+                (2): Dropout(p=0.1, inplace=False)
+                (3): Linear(in_features=512, out_features=256, bias=True)
+              )
+            )
+          )
+        )
+      )
+    )
+    (transformerMSP): Grouped_Hierarchical_Fusion(
+      (attention): SpatialDropBlock(
+        (mixer): Adaptive_MHSA(
+          (dropout): Dropout(p=0.1, inplace=False)
+          (out_proj): NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True)
+        )
+        (dropout): Dropout(p=0.1, inplace=False)
+        (norm): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+        (norm_channel): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+        (ffn): Sequential(
+          (0): Linear(in_features=256, out_features=512, bias=True)
+          (1): ReLU()
+          (2): Dropout(p=0.1, inplace=False)
+          (3): Linear(in_features=512, out_features=256, bias=True)
+        )
+      )
+      (group_fusion1): Intra_Group_Fusion(
+        (conv): Sequential(
+          (0): Conv1d(1024, 256, kernel_size=(1,), stride=(1,))
+          (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU()
+        )
+        (linear): ModuleList(
+          (0): Linear(in_features=512, out_features=256, bias=True)
+          (1): Linear(in_features=512, out_features=256, bias=True)
+          (2): Linear(in_features=512, out_features=256, bias=True)
+          (3): Linear(in_features=512, out_features=256, bias=True)
+        )
+        (dropout): ModuleList(
+          (0): Dropout(p=0.1, inplace=False)
+          (1): Dropout(p=0.1, inplace=False)
+          (2): Dropout(p=0.1, inplace=False)
+          (3): Dropout(p=0.1, inplace=False)
+        )
+        (norm): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+      )
+      (attention2): SpatialDropBlock(
+        (mixer): Adaptive_MHSA(
+          (dropout): Dropout(p=0.1, inplace=False)
+          (out_proj): NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True)
+        )
+        (dropout): Dropout(p=0.1, inplace=False)
+        (norm): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+        (norm_channel): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+        (ffn): Sequential(
+          (0): Linear(in_features=256, out_features=512, bias=True)
+          (1): ReLU()
+          (2): Dropout(p=0.1, inplace=False)
+          (3): Linear(in_features=512, out_features=256, bias=True)
+        )
+      )
+      (group_fusion2): Intra_Group_Fusion(
+        (conv): Sequential(
+          (0): Conv1d(1024, 256, kernel_size=(1,), stride=(1,))
+          (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU()
+        )
+        (linear): ModuleList(
+          (0): Linear(in_features=512, out_features=256, bias=True)
+          (1): Linear(in_features=512, out_features=256, bias=True)
+          (2): Linear(in_features=512, out_features=256, bias=True)
+          (3): Linear(in_features=512, out_features=256, bias=True)
+        )
+        (dropout): ModuleList(
+          (0): Dropout(p=0.1, inplace=False)
+          (1): Dropout(p=0.1, inplace=False)
+          (2): Dropout(p=0.1, inplace=False)
+          (3): Dropout(p=0.1, inplace=False)
+        )
+        (norm): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+      )
+      (attention3): SpatialMixerBlock(
+        (mixer): MultiheadAttention(
+          (out_proj): NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True)
+        )
+        (dropout): Dropout(p=0.1, inplace=False)
+        (norm): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+        (norm_channel): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+        (ffn): Sequential(
+          (0): Linear(in_features=256, out_features=512, bias=True)
+          (1): ReLU()
+          (2): Dropout(p=0.1, inplace=False)
+          (3): Linear(in_features=512, out_features=256, bias=True)
+        )
+      )
+      (decoder_layer): CrossMixerBlock(
+        (mixer): MultiheadAttention(
+          (out_proj): NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True)
+        )
+        (dropout): Dropout(p=0.1, inplace=False)
+        (norm): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+        (norm_channel): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+        (ffn): Sequential(
+          (0): Linear(in_features=256, out_features=512, bias=True)
+          (1): ReLU()
+          (2): Dropout(p=0.1, inplace=False)
+          (3): Linear(in_features=512, out_features=256, bias=True)
+        )
+      )
+    )
+    (class_embed): ModuleList(
+      (0): Linear(in_features=256, out_features=1, bias=True)
+    )
+    (class_embed_final): Linear(in_features=256, out_features=1, bias=True)
+    (bbox_embed): ModuleList(
+      (0): MLP(
+        (layers): ModuleList(
+          (0): Linear(in_features=256, out_features=256, bias=True)
+          (1): Linear(in_features=256, out_features=256, bias=True)
+          (2): Linear(in_features=256, out_features=256, bias=True)
+          (3): Linear(in_features=256, out_features=7, bias=True)
+        )
+      )
+    )
+  )
+)
+2025-03-04 19:53:32,553   INFO  **********************Start training waymo_models/faster_16frames(default)**********************
+2025-03-04 19:53:32,554   INFO  Loading Waymo dataset
+2025-03-04 19:53:35,854   INFO  Total skipped info 0
+2025-03-04 19:53:35,854   INFO  Total samples for Waymo dataset: 158081
+2025-03-04 19:53:35,854   INFO  Loading and reorganizing pred_boxes to dict from path: ../output/waymo_models/centerpoint_4frames/Interval5/eval/epoch_36/train/Interval1/result.pkl
+2025-03-04 19:53:44,658   INFO  Predicted boxes has been loaded, total sequences: 798
+2025-03-04 19:53:50,663   INFO  Train:    1/6 ( 17%) [   0/31617 (  0%)]  Loss: 2.291 (2.291)  LR: 3.000e-04  Time cost: 00:04/36:44:22 [00:05/220:26:17]  Acc_iter 1           Data time: 2.63(2.63)  Forward time: 1.55(1.55)  Batch time: 4.18(4.18)
+2025-03-04 19:54:13,065   INFO  Train:    1/6 ( 17%) [  49/31617 (  0%)]  Loss: 1.650 (1.914)  LR: 3.000e-04  Time cost: 00:26/4:39:44 [00:28/28:00:37]  Acc_iter 50          Data time: 0.00(0.08)  Forward time: 0.44(0.45)  Batch time: 0.44(0.53)
+2025-03-04 19:54:34,205   INFO  Train:    1/6 ( 17%) [  99/31617 (  0%)]  Loss: 2.082 (1.883)  LR: 3.000e-04  Time cost: 00:47/4:10:42 [00:49/25:08:08]  Acc_iter 100         Data time: 0.00(0.04)  Forward time: 0.44(0.44)  Batch time: 0.44(0.48)
+2025-03-04 19:54:54,321   INFO  Train:    1/6 ( 17%) [ 149/31617 (  0%)]  Loss: 1.799 (1.868)  LR: 3.000e-04  Time cost: 01:07/3:57:12 [01:09/23:48:50]  Acc_iter 150         Data time: 0.00(0.03)  Forward time: 0.35(0.42)  Batch time: 0.35(0.45)
+2025-03-04 19:54:54,737   INFO  
+2025-03-04 19:55:16,282   INFO  Train:    1/6 ( 17%) [ 199/31617 (  1%)]  Loss: 2.092 (1.862)  LR: 3.000e-04  Time cost: 01:29/3:55:07 [01:31/23:38:09]  Acc_iter 200         Data time: 0.00(0.02)  Forward time: 0.62(0.43)  Batch time: 0.62(0.45)
+2025-03-04 19:55:37,022   INFO  Train:    1/6 ( 17%) [ 249/31617 (  1%)]  Loss: 1.880 (1.864)  LR: 3.001e-04  Time cost: 01:50/3:51:09 [01:52/23:16:09]  Acc_iter 250         Data time: 0.00(0.02)  Forward time: 0.50(0.42)  Batch time: 0.50(0.44)
+2025-03-04 19:55:57,208   INFO  Train:    1/6 ( 17%) [ 299/31617 (  1%)]  Loss: 1.711 (1.866)  LR: 3.001e-04  Time cost: 02:10/3:47:27 [02:12/22:55:34]  Acc_iter 300         Data time: 0.00(0.02)  Forward time: 0.42(0.42)  Batch time: 0.42(0.44)
+2025-03-04 19:55:57,591   INFO  
+2025-03-04 19:56:18,144   INFO  Train:    1/6 ( 17%) [ 349/31617 (  1%)]  Loss: 1.747 (1.861)  LR: 3.001e-04  Time cost: 02:31/3:45:49 [02:33/22:47:31]  Acc_iter 350         Data time: 0.00(0.02)  Forward time: 0.38(0.42)  Batch time: 0.39(0.43)
+2025-03-04 19:56:38,382   INFO  Train:    1/6 ( 17%) [ 399/31617 (  1%)]  Loss: 1.741 (1.856)  LR: 3.002e-04  Time cost: 02:51/3:43:36 [02:53/22:35:54]  Acc_iter 400         Data time: 0.00(0.01)  Forward time: 0.36(0.42)  Batch time: 0.36(0.43)
+2025-03-04 19:56:58,675   INFO  Train:    1/6 ( 17%) [ 449/31617 (  1%)]  Loss: 1.813 (1.854)  LR: 3.002e-04  Time cost: 03:12/3:41:51 [03:13/22:27:10]  Acc_iter 450         Data time: 0.00(0.01)  Forward time: 0.48(0.41)  Batch time: 0.49(0.43)
+2025-03-04 19:56:59,066   INFO  
