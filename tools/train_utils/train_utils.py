@@ -179,7 +179,7 @@ def train_model(model, optimizer, train_loader, model_func, lr_scheduler, optim_
             augment_disable_flag = disable_augmentation_hook(hook_config, dataloader_iter, total_epochs, cur_epoch, cfg, augment_disable_flag, logger)
 
 
-            if (type(model).__name__) == 'FASTer' and cur_epoch in [3,5]:
+            if (type(model).__name__) == 'FASTer' and cur_epoch in [0,3,5]:
                 model.eval()
                 eval_loader.dataset.training = False
                 eval_loader.dataset.data_processor.training = False
