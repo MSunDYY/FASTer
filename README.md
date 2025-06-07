@@ -55,7 +55,8 @@ If you recognize our work or find it inspiring, please cite our paper.
 @article{dang2025faster,
   title={FASTer: Focal Token Acquiring-and-Scaling Transformer for Long-term 3D Object Detection},
   author={Dang, Chenxu and Duan, Zaipeng and An, Pei and Zhang, Xinmin and Hu, Xuzhong and Ma, Jie},
-  journal={arXiv preprint arXiv:2503.01899},
+  booktitle={Proceedings of the Computer Vision and Pattern Recognition Conference},
+  pages={17029--17038}
   year={2025}
 }
 ```
